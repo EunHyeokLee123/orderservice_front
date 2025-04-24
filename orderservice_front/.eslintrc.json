@@ -22,7 +22,7 @@
       { "singleQuote": true, "semi": true, "endOfLine": "auto" }
     ],
     "space-before-function-paren": ["error", "never"],
-    "require-jsdoc": "off",
+    // "require-jsdoc": "off",
     "padded-blocks": "off",
     "linebreak-style": "off",
     "comma-dangle": "off",
