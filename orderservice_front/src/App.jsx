@@ -5,19 +5,26 @@ import { Route, Routes } from 'react-router-dom';
 import Home from './components/Home';
 import './App.css';
 import MemberCreate from './components/MemberCreate';
+import AuthContext, { AuthContextProvider } from './context/UserContext';
+import LoginPage from './components/LoginPage';
+import ProductList from './components/ProductList';
 
 const App = () => {
   return (
-    <div className='App'>
-      <Header />
-      <div className='content-wrapper'>
-        <Routes>
-          <Route path='/' element={<Home />} />
-          <Route path='/member/create' element={<MemberCreate />} />
-        </Routes>
+    <AuthContextProvider>
+      <div className='App'>
+        <Header />
+        <div className='content-wrapper'>
+          <Routes>
+            <Route path='/' element={<Home />} />
+            <Route path='/login' element={<LoginPage />} />
+            <Route path='/member/create' element={<MemberCreate />} />
+            <Route path='/product/list' element={<ProductList />} />
+          </Routes>
+        </div>
+        <Footer />
       </div>
-      <Footer />
-    </div>
+    </AuthContextProvider>
   );
 };
 

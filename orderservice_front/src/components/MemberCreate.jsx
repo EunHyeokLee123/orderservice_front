@@ -69,7 +69,7 @@ const MemberCreate = () => {
     });
 
     const data = await res.json();
-    if (data.statudCode === 201) {
+    if (data.statusCode === 201) {
       alert(`${data.result}님 환영합니다.`);
       // 회원가입 하고 나면 Home(/)으로 이동시키자.
       navigate('/');
