@@ -17,6 +17,8 @@ import {
 } from '@mui/material';
 import React, { useContext, useEffect, useState } from 'react';
 import AuthContext from '../context/UserContext';
+import CartContext from '../context/CartContext';
+import { useNavigate } from 'react-router-dom';
 
 const ProductList = ({ pageTitle }) => {
   const [searchType, setSearchType] = useState('optional');
@@ -26,6 +28,10 @@ const ProductList = ({ pageTitle }) => {
 
   const { userRole } = useContext(AuthContext);
   const isAdmin = userRole === 'ADMIN';
+
+  const { addCart } = useContext(CartContext);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     loadProduct();
@@ -64,7 +70,7 @@ const ProductList = ({ pageTitle }) => {
     }
 
     for (let p of finalSelected) {
-      if (p.quantity) {
+      if (!p.quantity) {
         alert('수량이 0개인 상품은 담을 수 없습니다.');
         return;
       }
@@ -73,6 +79,10 @@ const ProductList = ({ pageTitle }) => {
     if (confirm('상품을 장바구니에 추가하시겠습니까?')) {
       // 카트로 상품을 보내주자.
       alert('선택한 상품이 장바구니에 추가되었습니다.');
+      console.log(finalSelected);
+
+      finalSelected.forEach((product) => addCart(product));
+      navigate('/order/cart');
     }
   };
 
