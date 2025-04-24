@@ -15,9 +15,11 @@ import React, { useContext } from 'react';
 import CartContext from '../context/CartContext';
 
 const OrderPage = () => {
-  const { productsInCart } = useContext(CartContext);
+  const { productsInCart, clearCart: onclear } = useContext(CartContext);
 
-  const clearCart = () => {};
+  const clearCart = () => {
+    onclear();
+  };
 
   const orderCreate = () => {};
 
