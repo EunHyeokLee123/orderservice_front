@@ -11,6 +11,7 @@ import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AuthContext from '../context/UserContext';
 import { jwtDecode } from 'jwt-decode';
+import axios from 'axios';
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
@@ -26,6 +27,7 @@ const LoginPage = () => {
       password,
     };
 
+    /*
     const res = await fetch('http://localhost:8181/user/doLogin', {
       method: 'POST',
       headers: {
@@ -46,6 +48,20 @@ const LoginPage = () => {
     }
     // 로그인 실패
     else {
+      alert('로그인 실패입니다. 아이디 혹은 비밀번호를 다시 입력하세요.');
+    }
+      */
+    try {
+      const res = await axios.post(
+        'http://localhost:8181/user/doLogin',
+        loginData,
+      ); // 로그인은 토큰을 안보내도 되서 headers를 비워도 됨
+
+      alert('로그인 성공!');
+      onLogin(res.data.result);
+      navigate('/');
+    } catch (err) {
+      console.log(err);
       alert('로그인 실패입니다. 아이디 혹은 비밀번호를 다시 입력하세요.');
     }
   };
