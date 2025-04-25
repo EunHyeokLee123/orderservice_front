@@ -13,10 +13,14 @@ import axios from 'axios';
 import React, { useContext, useEffect, useState } from 'react';
 import AuthContext from '../context/UserContext';
 import axiosInstance from '../configs/axios-config';
+import { useNavigate } from 'react-router-dom';
+import { handleAxiosError } from '../configs/HandleAxiosError';
 
 const MyPage = () => {
   const [memberInfoList, setMemberInfoList] = useState([]);
-  const { userRole } = useContext(AuthContext);
+  const { userRole, onLogout } = useContext(AuthContext);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     // 회원 정보를 불러오기
@@ -34,10 +38,6 @@ const MyPage = () => {
             : 'http://localhost:8181/user/myInfo';
 
         const res = await axiosInstance.get(url);
-
-        console.log(role);
-
-        console.log(res);
 
         // admin인 경우는 list로 리턴되고, user인 경우에는 객체로 넘어오기에
         // 배열 고차함수를 일괄적으로 사용하기 위해 배열로 감싸서 리턴하자.
@@ -59,7 +59,7 @@ const MyPage = () => {
           ]);
         });
       } catch (e) {
-        console.log(e);
+        handleAxiosError(e, onLogout, navigate);
       }
     };
 

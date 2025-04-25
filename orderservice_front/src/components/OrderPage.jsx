@@ -14,6 +14,9 @@ import {
 import React, { useContext } from 'react';
 import CartContext from '../context/CartContext';
 import axios from 'axios';
+import axiosInstance from '../configs/axios-config';
+import { handleAxiosError } from '../configs/HandleAxiosError';
+import { API_BASE_URL, ORDER } from '../configs/host-config';
 
 const OrderPage = () => {
   const { productsInCart, clearCart: onclear } = useContext(CartContext);
@@ -60,22 +63,16 @@ const OrderPage = () => {
     // fetch는 400번대 응답에도 예외가 발생하지 않아 if문으로 처리가 가능하지만
     // axios는 if문이 아니라 try-catch문을 통해 예외를 처리해야함.
     try {
-      const res = await axios.post(
-        'http://localhost:8181/order/create',
+      const res = await axiosInstance.post(
+        `${API_BASE_URL}${ORDER}/create`,
         orederProducts,
-        {
-          headers: {
-            Authorization: 'Bearer ' + localStorage.getItem('ACCESS_TOKEN'),
-          },
-        },
       );
 
       console.log('axios를 통해 전달받은 데이터: ', res);
       alert('주문이 완료되었습니다.');
       clearCart();
     } catch (err) {
-      console.log(err);
-      alert('주문 실패!');
+      handleAxiosError(err);
     }
   };
 
