@@ -87,7 +87,6 @@ const ProductCreate = () => {
                     display: 'flex',
                     justifyContent: 'center',
                     cursor: 'pointer',
-                    width: '225px',
                     borderRadius: '20px',
                   }}
                   onClick={() => $fileTag.current.click()}
