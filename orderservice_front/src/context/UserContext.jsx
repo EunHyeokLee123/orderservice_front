@@ -5,11 +5,14 @@ const AuthContext = React.createContext({
   onLogin: () => {},
   onLogout: () => {},
   userRole: '',
+  isInit: false,
 });
 
 export const AuthContextProvider = (props) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userRole, setUserRole] = useState('');
+  // 초기화 완료 상태변수 추가
+  const [isInit, setIsInit] = useState(false);
 
   const loginHandler = (loginData) => {
     localStorage.setItem('ACCESS_TOKEN', loginData.token);
@@ -31,6 +34,8 @@ export const AuthContextProvider = (props) => {
       setIsLoggedIn(true);
       setUserRole(localStorage.getItem('USER_ROLE'));
     }
+
+    setIsInit(true);
   }, []);
 
   return (
@@ -40,6 +45,7 @@ export const AuthContextProvider = (props) => {
         onLogin: loginHandler,
         onLogout: logoutHandler,
         userRole,
+        isInit,
       }}
     >
       {props.children}
