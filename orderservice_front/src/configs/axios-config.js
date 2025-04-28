@@ -52,6 +52,8 @@ axiosInstance.interceptors.response.use(
 
     if (error.response.data.message === 'NO_LOGIN') {
       console.log('아예 로그인을 하지 않아서 재발급 요청을 할 수 없음');
+      // 더 이상 비동기 요청이 진행되지 않게 하기 위해
+      // reject 호출 시 요청 취소
       return Promise.reject(error);
     }
 
