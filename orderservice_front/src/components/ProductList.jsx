@@ -99,9 +99,12 @@ const ProductList = ({ pageTitle }) => {
     try {
       // axios.get의 매개변수로 객체를 url뒤에 넘겨주면, 객체의 프로퍼티들을 보고 url뒤에
       // 쿼리식으로 붙여줌.
-      const res = await axios.get('http://localhost:8181/product/list', {
-        params,
-      });
+      const res = await axios.get(
+        'http://localhost:8000/product-service/product/list',
+        {
+          params,
+        },
+      );
       const data = await res.data;
 
       // 요청을 보냈는데, 길이가 0이다? -> 더이상 불러올 데이터가 없다는 의미

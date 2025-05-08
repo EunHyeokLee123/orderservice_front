@@ -13,7 +13,7 @@ let backendHostName;
 
 if (clientHostName === 'localhost') {
   // 개발중이라는 의미
-  backendHostName = 'http://localhost:8181';
+  backendHostName = 'http://localhost:8000';
 }
 // 배포를 했다는 가정하에
 else if (clientHostName === 'playdatashop.com') {
@@ -22,6 +22,6 @@ else if (clientHostName === 'playdatashop.com') {
 }
 
 export const API_BASE_URL = backendHostName;
-export const USER = '/user';
-export const PROD = '/product';
-export const ORDER = '/order';
+export const USER = '/user-service/user';
+export const PROD = '/product-service/product';
+export const ORDER = '/ordering-service/order';

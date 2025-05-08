@@ -15,6 +15,7 @@ import AuthContext from '../context/UserContext';
 import axiosInstance from '../configs/axios-config';
 import { useNavigate } from 'react-router-dom';
 import { handleAxiosError } from '../configs/HandleAxiosError';
+import OrderListComponent from './OrderListComponent';
 
 const MyPage = () => {
   const [memberInfoList, setMemberInfoList] = useState([]);
@@ -34,8 +35,8 @@ const MyPage = () => {
         const role = localStorage.getItem('USER_ROLE');
         const url =
           role === 'ADMIN'
-            ? 'http://localhost:8181/user/list'
-            : 'http://localhost:8181/user/myInfo';
+            ? 'http://localhost:8000/user-service/user/list'
+            : 'http://localhost:8000/user-service/user/myInfo';
 
         const res = await axiosInstance.get(url);
 
@@ -91,7 +92,7 @@ const MyPage = () => {
       </Grid>
 
       {/* OrderListComponent */}
-      {/* <OrderListComponent isAdmin={userRole === 'ADMIN'} /> */}
+      <OrderListComponent isAdmin={userRole === 'ADMIN'} />
     </Container>
   );
 };

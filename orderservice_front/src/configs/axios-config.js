@@ -67,9 +67,12 @@ axiosInstance.interceptors.response.use(
       try {
         const id = localStorage.getItem('USER_ID');
 
-        const res = await axios.post('http://localhost:8181/user/refresh', {
-          id,
-        });
+        const res = await axios.post(
+          'http://localhost:8000/user-service/user/refresh',
+          {
+            id,
+          },
+        );
 
         const newToken = res.data.result.token;
 
